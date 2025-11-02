@@ -1,7 +1,7 @@
 
 # change these to the values in game
 max_mana = 0
-mana_regen = 0 + 25 # x/5, input x, 25 is base mr
+mana_regen = 0 # x/5, input x, 25 is base mr
 aura_cost = 0
 uproot_cost = 0
 aura_count_target = 0
@@ -65,7 +65,7 @@ class Uproot(Spell):
 aura = Aura(aura_cost)
 uproot = Uproot(uproot_cost, False)
 
-total_time_per_cycle = (aura_count_target + 1) * (.003 * 110)
+total_time_per_cycle = (aura_count_target + 1) * (3 * delay / 1000)
 max_cycles = 1000
 cycle_count = 0
 
@@ -74,12 +74,12 @@ while current_mana > 0 and cycle_count < max_cycles:
     
     for _ in range(aura_count_target):
         if current_mana < aura.cost * (0.7 if uproot.mask else 1.0):
-            print(f"Insufficient mana after {cycle_count * total_time_per_cycle} seconds")
+            print(f"Insufficient mana after {(cycle_count * total_time_per_cycle):.2f} seconds")
             break
         aura.cast_aura()
     else:  # Only executes if loop wasn't broken
         if current_mana < uproot.cost:
-            print(f"Insufficient mana after {cycle_count * total_time_per_cycle} seconds")
+            print(f"Insufficient mana after {(cycle_count * total_time_per_cycle):.2f} seconds")
             break
         uproot.switch_mask()
         current_mana += (mana_regen/5) * total_time_per_cycle
