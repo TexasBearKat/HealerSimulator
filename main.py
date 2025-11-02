@@ -1,16 +1,16 @@
-def take_float_input(question):
+def take_input(question):
     try:
-        return float(input(question))
+        return int(input(question))
     except ValueError:
         print("Please input a float")
 
-current_mana = take_float_input("Max Mana: ")
-mana_regen = take_float_input("Mana Regen (x/5, input x): ")
-aura_cost = take_float_input("Aura Cost: ")
-uproot_cost = take_float_input("Uproot Cost: ")
-aura_count_target = int(take_float_input("Aura Count: "))
-
-# assuming 110 ms delay
+# change these to the values in game
+current_mana = 0
+mana_regen = 0
+aura_cost = 0
+uproot_cost = 0
+aura_count_target = 2
+delay = 110
 
 print("\n")
 
