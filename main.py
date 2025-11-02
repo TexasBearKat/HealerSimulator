@@ -1,11 +1,11 @@
 
 # change these to the values in game
-max_mana = 100
+max_mana = 0
 mana_regen = 0 + 25 # x/5, input x, 25 is base mr
-aura_cost = 11
-uproot_cost = 14
-aura_count_target = 3
-delay = 110
+aura_cost = 0
+uproot_cost = 0
+aura_count_target = 0
+delay = 0
 
 current_mana = max_mana
 count = 0
@@ -25,10 +25,11 @@ class Spell:
         current_mana -= self.cost
         if count > 2:
             current_mana -= (count - 1) * 5
-            print(f"Casted {self.name} for {self.cost + (self.count - 1) * 5} mana\nRemaining Mana: {current_mana}\n")
+            print(f"Casted {self.name} for {(self.cost + (self.count - 1) * 5):.2f} mana\nRemaining Mana: {current_mana:.2f}\n")
         else:
-            print(f"Casted {self.name} for {self.cost} mana\nRemaining Mana: {current_mana}")
+            print(f"Casted {self.name} for {self.cost:.2f} mana\nRemaining Mana: {current_mana:.2f}")
         
+        count += 1
         self.count += 1
         print(f"{self.name} casted {self.count} times\n")
 
@@ -58,7 +59,7 @@ class Uproot(Spell):
 
         global current_mana
         current_mana += 25
-        print(f"Masquerade, current mana: {current_mana}\n")
+        print(f"Masquerade, current mana: {current_mana:.2f}\n")
     
 
 aura = Aura(aura_cost)
