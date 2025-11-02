@@ -5,12 +5,14 @@ def take_input(question):
         print("Please input a float")
 
 # change these to the values in game
-current_mana = 0
-mana_regen = 0
+max_mana = 0
+mana_regen = 0 # x/5, input x
 aura_cost = 0
 uproot_cost = 0
 aura_count_target = 2
 delay = 110
+
+current_mana = max_mana
 
 print("\n")
 
@@ -57,7 +59,7 @@ class Uproot(Spell):
 aura = Aura(aura_cost)
 uproot = Uproot(uproot_cost, False)
 
-total_time_per_cycle = (aura_count_target + 1) * .330
+total_time_per_cycle = (aura_count_target + 1) * (.003 * 110)
 max_cycles = 1000
 cycle_count = 0
 
@@ -66,7 +68,7 @@ while current_mana > 0 and cycle_count < max_cycles:
     
     for _ in range(aura_count_target):
         if current_mana < aura.cost * (0.7 if uproot.mask else 1.0):
-            print(f"Insufficient mana after {cycle_count * .990} seconds")
+            print(f"Insufficient mana after {cycle_count * total_time_per_cycle} seconds")
             break
         aura.cast_aura()
     else:  # Only executes if loop wasn't broken
