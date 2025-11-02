@@ -1,8 +1,3 @@
-def take_input(question):
-    try:
-        return int(input(question))
-    except ValueError:
-        print("Please input a float")
 
 # change these to the values in game
 max_mana = 0
