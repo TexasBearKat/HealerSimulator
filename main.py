@@ -1,7 +1,7 @@
 
 # change these to the values in game
 max_mana = 0
-mana_regen = 0 # x/5, input x, 25 is base mr
+mana_regen = 0 + 25 # x/5, input x in place of 0, 25 is base mr
 aura_cost = 0
 uproot_cost = 0
 aura_count_target = 0
