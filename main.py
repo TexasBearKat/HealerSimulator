@@ -58,7 +58,7 @@ class Uproot(Spell):
         self.cast_spell()
 
         global current_mana
-        current_mana += 25
+        current_mana += 20
         print(f"Masquerade, current mana: {current_mana:.2f}\n")
     
 
