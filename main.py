@@ -1,13 +1,14 @@
 
 # change these to the values in game
-max_mana = 0
-mana_regen = 0 # x/5, input x
-aura_cost = 0
-uproot_cost = 0
-aura_count_target = 0
-delay = 0
+max_mana = 100
+mana_regen = 0 + 25 # x/5, input x, 25 is base mr
+aura_cost = 11
+uproot_cost = 14
+aura_count_target = 3
+delay = 110
 
 current_mana = max_mana
+count = 0
 
 print("\n")
 
@@ -15,12 +16,21 @@ class Spell:
     def __init__(self, cost, name):
         self.cost = cost
         self.name = name
+        self.count = 0
     
     def cast_spell(self):
         global current_mana
-        current_mana -= self.cost
+        global count
 
-        print(f"Casted {self.name} for {self.cost} mana\nRemaining Mana: {current_mana}\n")
+        current_mana -= self.cost
+        if count > 2:
+            current_mana -= (count - 1) * 5
+            print(f"Casted {self.name} for {self.cost + (self.count - 1) * 5} mana\nRemaining Mana: {current_mana}\n")
+        else:
+            print(f"Casted {self.name} for {self.cost} mana\nRemaining Mana: {current_mana}")
+        
+        self.count += 1
+        print(f"{self.name} casted {self.count} times\n")
 
 class Aura(Spell):
     def __init__(self, cost):
@@ -67,10 +77,16 @@ while current_mana > 0 and cycle_count < max_cycles:
             break
         aura.cast_aura()
     else:  # Only executes if loop wasn't broken
+        if current_mana < uproot.cost:
+            print(f"Insufficient mana after {cycle_count * total_time_per_cycle} seconds")
+            break
         uproot.switch_mask()
         current_mana += (mana_regen/5) * total_time_per_cycle
         if current_mana >= max_mana:
             print("Infinite Sustain, gained mana after 1 cycle")
             break
+        count = 0
+        aura.count = 0
+        uproot.count = 0
         continue
     break
