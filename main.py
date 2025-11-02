@@ -4,8 +4,8 @@ max_mana = 0
 mana_regen = 0 # x/5, input x
 aura_cost = 0
 uproot_cost = 0
-aura_count_target = 2
-delay = 110
+aura_count_target = 0
+delay = 0
 
 current_mana = max_mana
 
@@ -69,9 +69,8 @@ while current_mana > 0 and cycle_count < max_cycles:
     else:  # Only executes if loop wasn't broken
         uproot.switch_mask()
         current_mana += (mana_regen/5) * total_time_per_cycle
+        if current_mana >= max_mana:
+            print("Infinite Sustain, gained mana after 1 cycle")
+            break
         continue
     break
-
-
-
-
