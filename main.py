@@ -68,6 +68,7 @@ uproot = Uproot(uproot_cost, False)
 total_time_per_cycle = (aura_count_target + 1) * (3 * delay / 1000)
 max_cycles = 1000
 cycle_count = 0
+mana_regen_per_cycle = (mana_regen/5) * total_time_per_cycle
 
 while current_mana > 0 and cycle_count < max_cycles:
     cycle_count += 1
@@ -82,7 +83,8 @@ while current_mana > 0 and cycle_count < max_cycles:
             print(f"Insufficient mana after {(cycle_count * total_time_per_cycle):.2f} seconds")
             break
         uproot.switch_mask()
-        current_mana += (mana_regen/5) * total_time_per_cycle
+        current_mana += mana_regen_per_cycle
+        print(f"Regened {mana_regen_per_cycle:.2f} mana\n")
         if current_mana >= max_mana:
             print("Infinite Sustain, gained mana after 1 cycle")
             break
